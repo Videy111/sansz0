@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<meta name="description" content="Kumpulan video lengkap.">
+<meta property="og:title" content="🎥 MANTAP">
+<meta property="og:description" content="Tonton koleksi video di sini.">
+<meta property="og:site_name" content="🎥MANTAP">
+<title>🎥 MANTAP</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 18px 14px 30px;
+  color: #f8fafc;
+  background: linear-gradient(160deg, #0f172a, #111827 60%, #172554);
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin: 8px 0 20px;
+}
+
+header h1 {
+  font-size: 27px;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+header p {
+  font-size: 13px;
+  color: #aab7cc;
+  margin-top: 8px;
+}
+
+.player-shell {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(0,0,0,.35);
+}
+
+#videoPlayer {
+  display: block;
+  width: 100%;
+  max-height: 75vh;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  object-fit: contain;
+}
+
+.player-shell.is-fullscreen {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-shell.is-fullscreen #videoPlayer {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  aspect-ratio: auto;
+}
+
+.gate-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  text-align: center;
+  background: rgba(3, 7, 18, .84);
+  backdrop-filter: blur(5px);
+}
+
+.gate-overlay.show {
+  display: flex;
+}
+
+.gate-box {
+  width: 100%;
+  max-width: 320px;
+  padding: 20px 17px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1e293b, #111827);
+  box-shadow: 0 10px 35px rgba(0,0,0,.3);
+}
+
+.gate-box h2 {
+  font-size: 20px;
+  margin: 0 0 9px;
+}
+
+.gate-box p {
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 15px;
+}
+
+.gate-button {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 13px 12px;
+  background: linear-gradient(135deg, #8b5cf6, #4f46e5, #0891b2);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.video-navigation {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 16px 0 0;
+  padding: 9px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 13px;
+  background: rgba(255,255,255,.045);
+}
+
+.nav-arrow {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 38px;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: #334155;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.number-list {
+  display: flex;
+  flex: 1;
+  gap: 7px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.number-list::-webkit-scrollbar {
+  display: none;
+}
+
+.video-number {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 38px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 9px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.video-number.active {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  box-shadow: 0 4px 12px rgba(99,102,241,.25);
+}
+
+/* Kartu direct link: ukuran sedang dan ringkas */
+.directlink-card {
+  margin: 14px 0 20px;
+  padding: 15px 16px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 15px;
+  background: linear-gradient(
+    110deg,
+    #7c3aed,
+    #4f46e5,
+    #0891b2
+  );
+  box-shadow: 0 7px 18px rgba(79,70,229,.18);
+}
+
+.directlink-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 7px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.18);
+  color: white;
+  font-size: 18px;
+}
+
+.directlink-card h2 {
+  margin: 0 0 5px;
+  color: white;
+  font-size: 17px;
+}
+
+.directlink-card p {
+  margin: 0 0 12px;
+  color: rgba(255,255,255,.88);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.directlink-button {
+  display: inline-block;
+  width: auto;
+  padding: 11px 20px;
+  border-radius: 10px;
+  background: white;
+  color: #4338ca;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .2s, opacity .2s;
+}
+
+.directlink-button:hover {
+  transform: translateY(-2px);
+  opacity: .93;
+}
+
+footer {
+  padding: 10px 0;
+  color: #94a3b8;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 14px 10px 24px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <h1>🎥 MANTAP</h1>
+    <p>Pilih video dan nikmati koleksinya.</p>
+  </header>
+
+  <main>
+    <div class="player-shell" id="playerShell">
+
+      <video
+        id="videoPlayer"
+        controls
+        playsinline
+        preload="metadata"
+        controlsList="nodownload"
+      >
+        <source
+          src="https://cdn2.videy.co/9au9V7wJ1.mp4"
+          type="video/mp4"
+        >
+        Browser kamu tidak mendukung pemutaran video.
+      </video>
+
+      <div class="gate-overlay" id="gateOverlay">
+        <div class="gate-box">
+          <h2>▶ Lanjutkan Video</h2>
+          <p id="gateMessage">
+            Tekan tombol di bawah untuk melanjutkan video.
+          </p>
+          <button class="gate-button" id="continueButton">
+            LANJUTKAN VIDEO →
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navigasi video -->
+    <section class="video-navigation" aria-label="Pilihan video">
+      <button
+        class="nav-arrow"
+        id="scrollLeft"
+        type="button"
+        aria-label="Geser ke kiri"
+      >‹</button>
+
+      <div class="number-list" id="numberList"></div>
+
+      <button
+        class="nav-arrow"
+        id="scrollRight"
+        type="button"
+        aria-label="Geser ke kanan"
+      >›</button>
+    </section>
+
+    <!-- Tombol direct link -->
+    <section class="directlink-card">
+      <div class="directlink-icon">▶</div>
+      <h2>Kumpulan Video Lengkap</h2>
+      <p>Temukan koleksi video lainnya di sini.</p>
+
+      <a
+        class="directlink-button"
+        href="https://www.profitableratecpmnetwork.com/dzth71h9?key=0d1e630d97de4d34d79e6dd18d6a2fe8"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LIHAT KOLEKSI VIDEO →
+      </a>
+    </section>
+
+  </main>
+
+  <footer>© MANTAP</footer>
+</div>
+
+<script>
+(() => {
+  const DIRECT_LINK =
+    "https://www.profitableratecpmnetwork.com/dzth71h9?key=0d1e630d97de4d34d79e6dd18d6a2fe8";
+
+  const videoSources = [
+    "https://cdn2.videy.co/acG1OPKR1.mp4",
+    "https://cdn2.videy.co/3nq2HqEj1.mp4",
+    "https://cdn2.videy.co/Ucwkk0gB1.mp4",
+    "https://cdn2.videy.co/0XNtWeNu1.mp4",
+    "https://cdn2.videy.co/g990Y5yW1.mp4",
+    "https://cdn2.videy.co/VBwE9pC11.mp4"
+  ];
+
+  const GATE_TIMES = [15, 40];
+
+  const video = document.getElementById("videoPlayer");
+  const shell = document.getElementById("playerShell");
+  const overlay = document.getElementById("gateOverlay");
+  const continueButton = document.getElementById("continueButton");
+  const gateMessage = document.getElementById("gateMessage");
+  const numberList = document.getElementById("numberList");
+
+  let triggeredGates = new Set();
+  let currentVideo = -1;
+  let isGateOpen = false;
+
+  // Membuat tombol video 1 sampai 6.
+  videoSources.forEach((src, index) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "video-number";
+    button.textContent = index + 1;
+    button.setAttribute("aria-label", "Putar video " + (index + 1));
+
+    button.addEventListener("click", () => {
+      currentVideo = index;
+      triggeredGates = new Set();
+      closeGate();
+
+      video.src = src;
+      video.load();
+      updateActiveButton();
+
+      video.play().catch(() => {
+        // Pengunjung dapat menekan Play jika autoplay dibatasi.
+      });
+    });
+
+    numberList.appendChild(button);
+  });
+
+  function updateActiveButton() {
+    [...numberList.children].forEach((button, index) => {
+      button.classList.toggle("active", index === currentVideo);
+    });
+  }
+
+  function openGate(time) {
+    if (isGateOpen) return;
+
+    isGateOpen = true;
+    video.pause();
+    gateMessage.textContent =
+      "Video dijeda pada " + time +
+      " detik. Tekan tombol untuk melanjutkan.";
+    overlay.classList.add("show");
+  }
+
+  function closeGate() {
+    isGateOpen = false;
+    overlay.classList.remove("show");
+  }
+
+  // Pemicu pada detik ke-15 dan ke-40.
+  video.addEventListener("timeupdate", () => {
+    if (isGateOpen) return;
+
+    for (const time of GATE_TIMES) {
+      if (
+        video.currentTime >= time &&
+        !triggeredGates.has(time)
+      ) {
+        triggeredGates.add(time);
+        openGate(time);
+        break;
+      }
+    }
+  });
+
+  // Tombol melanjutkan video dan membuka direct link.
+  continueButton.addEventListener("click", () => {
+    // Membuka link hanya setelah ada klik langsung dari pengguna.
+    window.open(DIRECT_LINK, "_blank", "noopener,noreferrer");
+
+    closeGate();
+    video.play().catch(() => {});
+  });
+
+  // Tombol panah navigasi.
+  document.getElementById("scrollLeft").addEventListener("click", () => {
+    numberList.scrollBy({ left: -160, behavior: "smooth" });
+  });
+
+  document.getElementById("scrollRight").addEventListener("click", () => {
+    numberList.scrollBy({ left: 160, behavior: "smooth" });
+  });
+
+  // Fullscreen untuk player.
+  async function toggleFullscreen() {
+    try {
+      if (!document.fullscreenElement) {
+        if (shell.requestFullscreen) {
+          await shell.requestFullscreen();
+        } else if (video.webkitEnterFullscreen) {
+          video.webkitEnterFullscreen();
+        }
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      // Perangkat atau browser mungkin membatasi fullscreen.
+    }
+  }
+
+  video.addEventListener("dblclick", toggleFullscreen);
+
+  document.addEventListener("fullscreenchange", () => {
+    shell.classList.toggle(
+      "is-fullscreen",
+      Boolean(document.fullscreenElement)
+    );
+  });
+
+  // Link direct pada kartu juga mengarah ke URL yang sama.
+  document.querySelector(".directlink-button").href = DIRECT_LINK;
+
+  updateActiveButton();
+})();
+</script>
+</body>
+</html>
