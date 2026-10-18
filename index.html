@@ -3,356 +3,796 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101827">
-<meta name="description" content="Kumpulan video lengkap.">
-<meta property="og:title" content="🎥 MANTAP">
-<meta property="og:description" content="Tonton koleksi video di sini.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#070812">
+<title>🎥MANTAP</title>
+<meta name="description" content="Tonton video terbaru dan video lainnya.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="🎥MANTAP">
+<meta property="og:description" content="Tonton video terbaru dan video lainnya.">
+<meta property="og:image" content="https://jpcdn.it/img/78cdf523e00fb268089737a9a79c0a76.jpg">
+<meta property="og:image:alt" content="🎥MANTAP">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:site_name" content="🎥MANTAP">
-<title>🎥 MANTAP</title>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="🎥MANTAP">
+<meta name="twitter:description" content="Tonton video terbaru dan video lainnya.">
+<meta name="twitter:image" content="https://jpcdn.it/img/78cdf523e00fb268089737a9a79c0a76.jpg">
 
 <style>
+:root {
+  --bg: #070812;
+  --text: #f7f8ff;
+  --muted: #9ca3b8;
+  --line: rgba(255,255,255,.09);
+  --purple: #8b5cf6;
+  --blue: #38bdf8;
+}
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 18px 14px 30px;
-  color: #f8fafc;
-  background: linear-gradient(160deg, #0f172a, #111827 60%, #172554);
-  font-family: Arial, sans-serif;
   min-height: 100vh;
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(139,92,246,.20), transparent 30%),
+    radial-gradient(circle at 90% 10%, rgba(56,189,248,.13), transparent 28%),
+    linear-gradient(145deg,#070812 0%,#0b0d18 48%,#070812 100%);
 }
 
-.container {
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
+button {
+  font: inherit;
 }
 
-header {
-  text-align: center;
-  margin: 8px 0 20px;
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: rgba(7,8,18,.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
 }
 
-header h1 {
-  font-size: 27px;
-  margin: 0;
-  letter-spacing: 1px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
 }
 
-header p {
-  font-size: 13px;
-  color: #aab7cc;
-  margin-top: 8px;
+.brand-mark {
+  width: 35px;
+  height: 35px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,var(--purple),var(--blue));
+}
+
+.share-top {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: #fff;
+  background: rgba(255,255,255,.05);
+  cursor: pointer;
+}
+
+main {
+  width: min(1060px,100%);
+  margin: auto;
+  padding: 22px 16px 45px;
 }
 
 .player-shell {
   position: relative;
   overflow: hidden;
   background: #000;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 16px;
-  box-shadow: 0 12px 35px rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0,0,0,.45);
 }
 
-#videoPlayer {
+video {
   display: block;
   width: 100%;
-  max-height: 75vh;
-  aspect-ratio: 16 / 9;
-  background: #000;
+  aspect-ratio: 16/10;
   object-fit: contain;
+  background: #000;
 }
 
-.player-shell.is-fullscreen {
-  width: 100%;
+.video-top-gradient {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 105px;
+  pointer-events: none;
+  background: linear-gradient(to bottom,rgba(0,0,0,.55),transparent);
+}
+
+.video-bottom-gradient {
+  position: absolute;
+  inset: auto 0 0;
+  height: 120px;
+  pointer-events: none;
+  background: linear-gradient(to top,rgba(0,0,0,.72),transparent);
+}
+
+.player-badge {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  z-index: 3;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(8,9,18,.75);
+  border: 1px solid rgba(255,255,255,.12);
+  pointer-events: none;
+}
+
+.center-play-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 10;
+  width: 70px;
+  height: 70px;
+  border: 1px solid rgba(255,255,255,.38);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28px;
+  background: rgba(0,0,0,.70);
+  cursor: pointer;
+  transition: opacity .2s, transform .2s;
+}
+
+.center-play-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.controls {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .25s, visibility .25s;
+}
+
+.player-shell.controls-hidden .controls {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ctrl {
+  width: 40px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 11px;
+  background: rgba(10,11,18,.72);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.progress {
+  flex: 1;
+  min-width: 20px;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.22);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-fill {
+  width: 0%;
   height: 100%;
-  border: 0;
+  background: linear-gradient(90deg,var(--purple),var(--blue));
+  border-radius: 99px;
+}
+
+.time {
+  font-size: 11px;
+  color: #fff;
+  min-width: 70px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Fullscreen */
+.player-shell:fullscreen,
+.player-shell.is-fullscreen {
   border-radius: 0;
+  border: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.player-shell.is-fullscreen #videoPlayer {
+.player-shell:fullscreen video,
+.player-shell.is-fullscreen video {
   width: 100%;
   height: 100%;
-  max-height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
   aspect-ratio: auto;
 }
 
-.gate-overlay {
+.player-shell:fullscreen .controls,
+.player-shell.is-fullscreen .controls {
+  bottom: 18px;
+}
+
+/* Trigger video */
+.continue-overlay {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: 15;
   display: none;
   align-items: center;
   justify-content: center;
-  padding: 18px;
-  text-align: center;
-  background: rgba(3, 7, 18, .84);
-  backdrop-filter: blur(5px);
+  padding: 20px;
+  background: rgba(3,4,10,.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.gate-overlay.show {
+.continue-overlay.show {
   display: flex;
 }
 
-.gate-box {
-  width: 100%;
-  max-width: 320px;
-  padding: 20px 17px;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 16px;
-  background: linear-gradient(145deg, #1e293b, #111827);
-  box-shadow: 0 10px 35px rgba(0,0,0,.3);
+.continue-box {
+  width: min(430px,100%);
+  padding: 27px 23px 23px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 22px;
+  background: #101221;
+  box-shadow: 0 25px 80px rgba(0,0,0,.55);
 }
 
-.gate-box h2 {
+.ad-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 14px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(135deg,var(--purple),var(--blue));
   font-size: 20px;
-  margin: 0 0 9px;
 }
 
-.gate-box p {
-  color: #cbd5e1;
+.continue-box h2 {
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+.continue-box p {
+  color: var(--muted);
   font-size: 13px;
-  line-height: 1.5;
-  margin: 0 0 15px;
+  line-height: 1.55;
+  margin: 9px 0 18px;
 }
 
-.gate-button {
+.ad-button {
   display: block;
   width: 100%;
-  border: 0;
-  border-radius: 10px;
-  padding: 13px 12px;
-  background: linear-gradient(135deg, #8b5cf6, #4f46e5, #0891b2);
+  padding: 12px 16px;
+  border-radius: 13px;
   color: #fff;
-  font-size: 13px;
   font-weight: 800;
+  text-decoration: none;
+  background: linear-gradient(135deg,var(--purple),#6366f1,var(--blue));
   cursor: pointer;
 }
 
+.small-note {
+  font-size: 10px;
+  color: #a2a7ba;
+  margin-top: 10px;
+}
+
+/* Informasi video */
+.info {
+  padding: 20px 2px 0;
+}
+
+.title {
+  font-size: clamp(21px,3vw,30px);
+  line-height: 1.2;
+  letter-spacing: -.5px;
+}
+
+.meta {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.divider {
+  height: 1px;
+  background: var(--line);
+  margin: 22px 0;
+}
+
+/* Navigasi video */
 .video-navigation {
+  margin: 20px 0 25px;
+  padding: 17px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  background: rgba(18,20,35,.75);
+}
+
+.navigation-heading {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.navigation-description {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Deretan nomor horizontal yang bisa digeser */
+.video-number-scroller {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin: 16px 0 0;
-  padding: 9px;
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 13px;
-  background: rgba(255,255,255,.045);
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
-.nav-arrow {
-  flex: 0 0 34px;
-  width: 34px;
-  height: 38px;
-  border: 0;
-  border-radius: 9px;
-  color: #fff;
-  background: #334155;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.number-list {
+.video-numbers {
   display: flex;
   flex: 1;
-  gap: 7px;
+  min-width: 0;
+  gap: 9px;
   overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  padding: 4px 2px 10px;
+  overscroll-behavior-x: contain;
 }
 
-.number-list::-webkit-scrollbar {
+.video-numbers::-webkit-scrollbar {
   display: none;
 }
 
 .video-number {
-  flex: 0 0 40px;
-  width: 40px;
-  height: 38px;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 9px;
-  background: #1e293b;
-  color: #e2e8f0;
-  font-weight: 700;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  max-height: none;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 12px;
+  color: #e8eaff;
+  background: rgba(255,255,255,.045);
+  font-size: 17px;
+  font-weight: 800;
   cursor: pointer;
+  transition: background .2s,border-color .2s,transform .2s;
+}
+
+.video-number:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
 }
 
 .video-number.active {
   color: #fff;
-  border-color: transparent;
-  background: linear-gradient(135deg, #7c3aed, #2563eb);
-  box-shadow: 0 4px 12px rgba(99,102,241,.25);
+  background: linear-gradient(135deg,var(--purple),#4f46e5,var(--blue));
+  border-color: rgba(255,255,255,.4);
+  box-shadow: 0 7px 22px rgba(99,102,241,.25);
 }
 
-/* Kartu direct link: ukuran sedang dan ringkas */
-.directlink-card {
-  margin: 14px 0 20px;
-  padding: 15px 16px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 15px;
-  background: linear-gradient(
-    110deg,
-    #7c3aed,
-    #4f46e5,
-    #0891b2
-  );
-  box-shadow: 0 7px 18px rgba(79,70,229,.18);
-}
-
-.directlink-icon {
+.scroll-arrow {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 44px;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  margin: 0 auto 7px;
+  border: 1px solid var(--line);
   border-radius: 10px;
-  background: rgba(255,255,255,.18);
-  color: white;
-  font-size: 18px;
+  background: rgba(255,255,255,.07);
+  color: #fff;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.directlink-card h2 {
-  margin: 0 0 5px;
-  color: white;
-  font-size: 17px;
+.scroll-arrow:disabled {
+  opacity: .3;
+  cursor: default;
 }
 
-.directlink-card p {
-  margin: 0 0 12px;
-  color: rgba(255,255,255,.88);
+.now-playing {
+  margin-top: 10px;
   font-size: 12px;
-  line-height: 1.4;
+  color: #c4b5fd;
+  text-align: center;
 }
 
-.directlink-button {
-  display: inline-block;
-  width: auto;
-  padding: 11px 20px;
-  border-radius: 10px;
-  background: white;
-  color: #4338ca;
-  font-size: 13px;
+/* TAMBAHAN: Kartu Kumpulan Video Lengkap */
+.collection-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 22px 0 25px;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(139,92,246,.42);
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(56,189,248,.16), transparent 45%),
+    linear-gradient(135deg, rgba(139,92,246,.15), rgba(18,20,35,.96) 65%);
+  box-shadow: 0 12px 35px rgba(0,0,0,.22);
+}
+
+.collection-icon {
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  font-size: 26px;
+  background: linear-gradient(135deg,var(--purple),var(--blue));
+  box-shadow: 0 8px 22px rgba(99,102,241,.24);
+}
+
+.collection-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.collection-content h2 {
+  font-size: 17px;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.collection-content p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.collection-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 13px;
+  padding: 11px 15px;
+  border-radius: 11px;
+  color: #fff;
+  font-size: 12px;
   font-weight: 800;
   text-decoration: none;
-  transition: transform .2s, opacity .2s;
+  background: linear-gradient(110deg,var(--purple),#6366f1,var(--blue));
+  box-shadow: 0 6px 18px rgba(99,102,241,.2);
+  transition: filter .2s,transform .2s;
 }
 
-.directlink-button:hover {
-  transform: translateY(-2px);
-  opacity: .93;
+.collection-button:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
 }
 
 footer {
-  padding: 10px 0;
-  color: #94a3b8;
-  font-size: 11px;
   text-align: center;
+  color: #73798c;
+  font-size: 12px;
+  padding: 22px 0 0;
 }
 
-@media (max-width: 420px) {
-  body {
-    padding: 14px 10px 24px;
+@media(max-width:700px) {
+  .topbar {
+    height: 58px;
+    padding: 0 12px;
   }
 
-  header h1 {
-    font-size: 24px;
+  main {
+    padding: 12px 10px 35px;
+  }
+
+  .player-shell {
+    border-radius: 15px;
+  }
+
+  video {
+    aspect-ratio: 5/4;
+  }
+
+  .controls {
+    left: 9px;
+    right: 9px;
+    bottom: 8px;
+    gap: 6px;
+  }
+
+  .ctrl {
+    width: 36px;
+    height: 35px;
+  }
+
+  .time {
+    font-size: 10px;
+    min-width: 52px;
+  }
+
+  .info {
+    padding-top: 16px;
+  }
+
+  .video-navigation {
+    padding: 13px;
+  }
+
+  .video-numbers {
+    gap: 7px;
+  }
+
+  .video-number {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    font-size: 16px;
+  }
+
+  .scroll-arrow {
+    flex-basis: 32px;
+    width: 32px;
+    height: 42px;
+  }
+
+  .continue-box {
+    padding: 23px 17px 18px;
+  }
+
+  .center-play-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 26px;
+  }
+
+  /* Tampilan kartu tambahan di HP */
+  .collection-card {
+    gap: 12px;
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .collection-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    font-size: 22px;
+  }
+
+  .collection-content h2 {
+    font-size: 15px;
+  }
+
+  .collection-content p {
+    font-size: 11px;
+  }
+
+  .collection-button {
+    padding: 10px 12px;
+    font-size: 11px;
   }
 }
 </style>
 </head>
 
 <body>
-<div class="container">
 
-  <header>
-    <h1>🎥 MANTAP</h1>
-    <p>Pilih video dan nikmati koleksinya.</p>
-  </header>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">▶</div>
+    <span>Video Player</span>
+  </div>
 
-  <main>
-    <div class="player-shell" id="playerShell">
+  <button class="share-top" type="button" id="shareButton"
+    aria-label="Bagikan">↗</button>
+</header>
 
-      <video
-        id="videoPlayer"
-        controls
-        playsinline
-        preload="metadata"
-        controlsList="nodownload"
-      >
-        <source
-          src="https://cdn2.videy.co/9au9V7wJ1.mp4"
-          type="video/mp4"
-        >
-        Browser kamu tidak mendukung pemutaran video.
-      </video>
+<main>
 
-      <div class="gate-overlay" id="gateOverlay">
-        <div class="gate-box">
-          <h2>▶ Lanjutkan Video</h2>
-          <p id="gateMessage">
-            Tekan tombol di bawah untuk melanjutkan video.
-          </p>
-          <button class="gate-button" id="continueButton">
-            LANJUTKAN VIDEO →
-          </button>
+  <!-- SATU PEMUTAR UNTUK SEMUA VIDEO -->
+  <section class="player-shell" id="mainPlayer"
+    aria-label="Pemutar video utama">
+
+    <video id="mainVideo"
+      playsinline
+      preload="metadata"
+      src="https://cdn2.videy.co/9au9V7wJ1.mp4">
+    </video>
+
+    <div class="video-top-gradient"></div>
+    <div class="video-bottom-gradient"></div>
+
+    <div class="player-badge">HD • Mobile Friendly</div>
+
+    <button class="center-play-btn"
+      type="button"
+      data-action="center-play"
+      aria-label="Putar video">▶</button>
+
+    <!-- Overlay trigger -->
+    <div class="continue-overlay" id="continueOverlay">
+      <div class="continue-box">
+        <div class="ad-icon">▶</div>
+        <h2>Lanjutkan Video</h2>
+        <p>
+          Video dijeda sementara. Tekan tombol di bawah jika ingin
+          membuka tautan iklan dan melanjutkan video.
+        </p>
+
+        <a class="ad-button"
+          href="https://www.profitableratecpmnetwork.com/dzth71h9?key=0d1e630d97de4d34d79e6dd18d6a2fe8"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-action="continue-ad">
+          Lanjutkan &amp; Buka Iklan
+        </a>
+
+        <div class="small-note">
+          Tautan dibuka hanya setelah kamu menekan tombol.
         </div>
       </div>
-
     </div>
 
-    <!-- Navigasi video -->
-    <section class="video-navigation" aria-label="Pilihan video">
-      <button
-        class="nav-arrow"
+    <div class="controls">
+      <button class="ctrl" type="button"
+        data-action="play" aria-label="Putar atau jeda">▶</button>
+
+      <div class="progress"
+        data-action="seek"
+        role="slider"
+        aria-label="Posisi video"
+        tabindex="0">
+        <div class="progress-fill"></div>
+      </div>
+
+      <div class="time">0:00 / 0:00</div>
+
+      <button class="ctrl" type="button"
+        data-action="fullscreen" aria-label="Fullscreen">⛶</button>
+    </div>
+  </section>
+
+  <section class="info">
+    <h1 class="title" id="videoTitle">Video Utama</h1>
+    <div class="meta" id="videoDescription">
+      Nikmati video dengan tampilan nyaman di HP maupun desktop.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- NOMOR VIDEO OTOMATIS DAN BISA DIGESER -->
+  <section class="video-navigation">
+    <div class="navigation-heading">✨ Pilih Video</div>
+
+    <div class="navigation-description">
+      Pilih nomor video atau geser deretan angka ke kanan untuk
+      melihat video lainnya.
+    </div>
+
+    <div class="video-number-scroller">
+      <button class="scroll-arrow"
         id="scrollLeft"
         type="button"
-        aria-label="Geser ke kiri"
-      >‹</button>
+        aria-label="Geser nomor ke kiri"
+        disabled>‹</button>
 
-      <div class="number-list" id="numberList"></div>
+      <div class="video-numbers"
+        id="videoNumbers"
+        aria-label="Daftar nomor video">
+      </div>
 
-      <button
-        class="nav-arrow"
+      <button class="scroll-arrow"
         id="scrollRight"
         type="button"
-        aria-label="Geser ke kanan"
-      >›</button>
-    </section>
+        aria-label="Geser nomor ke kanan">›</button>
+    </div>
 
-    <!-- Tombol direct link -->
-    <section class="directlink-card">
-      <div class="directlink-icon">▶</div>
-      <h2>Kumpulan Video Lengkap</h2>
-      <p>Temukan koleksi video lainnya di sini.</p>
+    <div class="now-playing" id="nowPlaying">
+      Sedang dipilih: Video Utama
+    </div>
+  </section>
+
+  <!-- TAMBAHAN: KUMPULAN VIDEO LENGKAP -->
+  <section class="collection-card" aria-label="Kumpulan video lengkap">
+    <div class="collection-icon" aria-hidden="true">🎬</div>
+
+    <div class="collection-content">
+      <h2>🔥 Kumpulan Video Lengkap</h2>
+      <p>
+        Temukan video lainnya dalam satu koleksi.
+        Klik tombol di bawah untuk melihat selengkapnya.
+      </p>
 
       <a
-        class="directlink-button"
+        class="collection-button"
         href="https://www.profitableratecpmnetwork.com/dzth71h9?key=0d1e630d97de4d34d79e6dd18d6a2fe8"
         target="_blank"
-        rel="noopener noreferrer"
-      >
-        LIHAT KOLEKSI VIDEO →
+        rel="noopener noreferrer">
+        Lihat Koleksi Video Lengkap ↗
       </a>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <footer>© 2026 • Video Player</footer>
 
-  <footer>© MANTAP</footer>
-</div>
+</main>
 
 <script>
 (() => {
-  const DIRECT_LINK =
-    "https://www.profitableratecpmnetwork.com/dzth71h9?key=0d1e630d97de4d34d79e6dd18d6a2fe8";
+  "use strict";
 
+  const MAIN_SOURCE = "https://cdn2.videy.co/9au9V7wJ1.mp4";
+
+  /*
+    TAMBAHKAN VIDEO BARU DI SINI.
+
+    Setiap URL baru otomatis mendapatkan tombol nomor.
+    Video utama di atas tidak termasuk dalam nomor 1, 2, 3, dan seterusnya.
+  */
   const videoSources = [
     "https://cdn2.videy.co/acG1OPKR1.mp4",
     "https://cdn2.videy.co/3nq2HqEj1.mp4",
@@ -362,132 +802,431 @@ footer {
     "https://cdn2.videy.co/VBwE9pC11.mp4"
   ];
 
+  // Trigger pada detik ke-15 dan ke-40.
   const GATE_TIMES = [15, 40];
 
-  const video = document.getElementById("videoPlayer");
-  const shell = document.getElementById("playerShell");
-  const overlay = document.getElementById("gateOverlay");
-  const continueButton = document.getElementById("continueButton");
-  const gateMessage = document.getElementById("gateMessage");
-  const numberList = document.getElementById("numberList");
+  const shell = document.getElementById("mainPlayer");
+  const video = document.getElementById("mainVideo");
+  const centerBtn = shell.querySelector(".center-play-btn");
+  const playBtn = shell.querySelector('[data-action="play"]');
+  const progress = shell.querySelector(".progress");
+  const progressFill = shell.querySelector(".progress-fill");
+  const timeEl = shell.querySelector(".time");
+  const overlay = document.getElementById("continueOverlay");
 
-  let triggeredGates = new Set();
-  let currentVideo = -1;
-  let isGateOpen = false;
+  const numbersContainer = document.getElementById("videoNumbers");
+  const scrollLeftButton = document.getElementById("scrollLeft");
+  const scrollRightButton = document.getElementById("scrollRight");
 
-  // Membuat tombol video 1 sampai 6.
-  videoSources.forEach((src, index) => {
+  const videoTitle = document.getElementById("videoTitle");
+  const videoDescription = document.getElementById("videoDescription");
+  const nowPlaying = document.getElementById("nowPlaying");
+
+  let currentSelection = -1;
+  let gateCount = 0;
+  let gateShown = false;
+  let controlsTimer = null;
+  let centerTimer = null;
+
+  // Buat tombol nomor secara otomatis dari daftar video.
+  videoSources.forEach((source, index) => {
     const button = document.createElement("button");
 
     button.type = "button";
     button.className = "video-number";
-    button.textContent = index + 1;
-    button.setAttribute("aria-label", "Putar video " + (index + 1));
+    button.dataset.video = String(index);
+    button.textContent = String(index + 1);
+    button.setAttribute("aria-pressed", "false");
+    button.setAttribute(
+      "aria-label",
+      "Putar video " + (index + 1)
+    );
 
-    button.addEventListener("click", () => {
-      currentVideo = index;
-      triggeredGates = new Set();
-      closeGate();
-
-      video.src = src;
-      video.load();
-      updateActiveButton();
-
-      video.play().catch(() => {
-        // Pengunjung dapat menekan Play jika autoplay dibatasi.
-      });
-    });
-
-    numberList.appendChild(button);
+    numbersContainer.appendChild(button);
   });
 
-  function updateActiveButton() {
-    [...numberList.children].forEach((button, index) => {
-      button.classList.toggle("active", index === currentVideo);
-    });
-  }
+  const numberButtons =
+    numbersContainer.querySelectorAll(".video-number");
 
-  function openGate(time) {
-    if (isGateOpen) return;
-
-    isGateOpen = true;
-    video.pause();
-    gateMessage.textContent =
-      "Video dijeda pada " + time +
-      " detik. Tekan tombol untuk melanjutkan.";
-    overlay.classList.add("show");
-  }
-
-  function closeGate() {
-    isGateOpen = false;
-    overlay.classList.remove("show");
-  }
-
-  // Pemicu pada detik ke-15 dan ke-40.
-  video.addEventListener("timeupdate", () => {
-    if (isGateOpen) return;
-
-    for (const time of GATE_TIMES) {
-      if (
-        video.currentTime >= time &&
-        !triggeredGates.has(time)
-      ) {
-        triggeredGates.add(time);
-        openGate(time);
-        break;
-      }
+  function formatTime(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) {
+      return "0:00";
     }
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, "0");
+
+    return minutes + ":" + secs;
+  }
+
+  function updateScrollArrows() {
+    const maxScroll = Math.max(
+      0,
+      numbersContainer.scrollWidth - numbersContainer.clientWidth
+    );
+
+    scrollLeftButton.disabled =
+      numbersContainer.scrollLeft <= 2;
+
+    scrollRightButton.disabled =
+      numbersContainer.scrollLeft >= maxScroll - 2;
+  }
+
+  scrollLeftButton.addEventListener("click", () => {
+    numbersContainer.scrollBy({
+      left: -180,
+      behavior: "smooth"
+    });
   });
 
-  // Tombol melanjutkan video dan membuka direct link.
-  continueButton.addEventListener("click", () => {
-    // Membuka link hanya setelah ada klik langsung dari pengguna.
-    window.open(DIRECT_LINK, "_blank", "noopener,noreferrer");
-
-    closeGate();
-    video.play().catch(() => {});
+  scrollRightButton.addEventListener("click", () => {
+    numbersContainer.scrollBy({
+      left: 180,
+      behavior: "smooth"
+    });
   });
 
-  // Tombol panah navigasi.
-  document.getElementById("scrollLeft").addEventListener("click", () => {
-    numberList.scrollBy({ left: -160, behavior: "smooth" });
-  });
+  numbersContainer.addEventListener(
+    "scroll",
+    updateScrollArrows
+  );
 
-  document.getElementById("scrollRight").addEventListener("click", () => {
-    numberList.scrollBy({ left: 160, behavior: "smooth" });
-  });
+  window.addEventListener("resize", updateScrollArrows);
 
-  // Fullscreen untuk player.
+  function showControls() {
+    clearTimeout(controlsTimer);
+    shell.classList.remove("controls-hidden");
+
+    if (!video.paused && !overlay.classList.contains("show")) {
+      controlsTimer = setTimeout(() => {
+        if (!video.paused && !overlay.classList.contains("show")) {
+          shell.classList.add("controls-hidden");
+        }
+      }, 2200);
+    }
+  }
+
+  function updateCenter() {
+    if (video.paused || video.ended) {
+      centerBtn.classList.remove("hidden");
+      centerBtn.textContent = "▶";
+      centerBtn.setAttribute("aria-label", "Putar video");
+    } else {
+      centerBtn.classList.add("hidden");
+      centerBtn.textContent = "▶";
+      centerBtn.setAttribute("aria-label", "Putar video");
+    }
+  }
+
+  function resetTriggers() {
+    gateCount = 0;
+    gateShown = false;
+    overlay.classList.remove("show");
+    shell.classList.remove("controls-hidden");
+
+    clearTimeout(controlsTimer);
+    clearTimeout(centerTimer);
+  }
+
+  function togglePlay() {
+    if (overlay.classList.contains("show")) return;
+
+    if (video.paused) {
+      video.play().catch(() => updateCenter());
+    } else {
+      video.pause();
+    }
+  }
+
+  function seekTo(clientX) {
+    if (!video.duration || overlay.classList.contains("show")) {
+      return;
+    }
+
+    const rect = progress.getBoundingClientRect();
+
+    if (!rect.width) return;
+
+    const pct = Math.max(
+      0,
+      Math.min(1, (clientX - rect.left) / rect.width)
+    );
+
+    video.currentTime = pct * video.duration;
+    showControls();
+  }
+
   async function toggleFullscreen() {
     try {
-      if (!document.fullscreenElement) {
-        if (shell.requestFullscreen) {
-          await shell.requestFullscreen();
-        } else if (video.webkitEnterFullscreen) {
-          video.webkitEnterFullscreen();
-        }
-      } else {
+      if (document.fullscreenElement === shell) {
         await document.exitFullscreen();
+      } else if (shell.requestFullscreen) {
+        await shell.requestFullscreen();
+      } else {
+        shell.classList.toggle("is-fullscreen");
       }
     } catch (error) {
-      // Perangkat atau browser mungkin membatasi fullscreen.
+      shell.classList.toggle("is-fullscreen");
     }
   }
 
-  video.addEventListener("dblclick", toggleFullscreen);
+  // Mengganti video pada pemutar utama yang sama.
+  function selectVideo(index) {
+    if (
+      index < -1 ||
+      index >= videoSources.length ||
+      !Number.isInteger(index)
+    ) {
+      return;
+    }
 
-  document.addEventListener("fullscreenchange", () => {
-    shell.classList.toggle(
-      "is-fullscreen",
-      Boolean(document.fullscreenElement)
-    );
+    video.pause();
+    resetTriggers();
+
+    currentSelection = index;
+
+    const isMain = index === -1;
+    const source = isMain ? MAIN_SOURCE : videoSources[index];
+    const title = isMain ? "Video Utama" : "Video " + (index + 1);
+
+    numberButtons.forEach((button, buttonIndex) => {
+      const active = !isMain && buttonIndex === index;
+
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    videoTitle.textContent = title;
+
+    videoDescription.textContent = isMain
+      ? "Nikmati video utama dengan tampilan nyaman di HP maupun desktop."
+      : "Kamu sedang menonton " + title + ".";
+
+    nowPlaying.textContent = "Sedang dipilih: " + title;
+
+    // Ganti sumber pada elemen video yang sama.
+    video.src = source;
+    video.load();
+
+    progressFill.style.width = "0%";
+    timeEl.textContent = "0:00 / 0:00";
+    updateCenter();
+
+    // Jika nomor aktif berada di luar layar, geser agar terlihat.
+    if (!isMain && numberButtons[index]) {
+      numberButtons[index].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest"
+      });
+    }
+
+    updateScrollArrows();
+
+    // Pemutaran dapat memerlukan interaksi ulang jika diblokir browser.
+    video.play().catch(() => updateCenter());
+  }
+
+  centerBtn.addEventListener("click", event => {
+    event.stopPropagation();
+    togglePlay();
   });
 
-  // Link direct pada kartu juga mengarah ke URL yang sama.
-  document.querySelector(".directlink-button").href = DIRECT_LINK;
+  playBtn.addEventListener("click", togglePlay);
 
-  updateActiveButton();
+  shell.querySelector('[data-action="fullscreen"]')
+    .addEventListener("click", toggleFullscreen);
+
+  video.addEventListener("click", () => {
+    showControls();
+
+    if (!video.paused) {
+      centerBtn.classList.remove("hidden");
+      centerBtn.textContent = "Ⅱ";
+
+      clearTimeout(centerTimer);
+
+      centerTimer = setTimeout(() => {
+        if (!video.paused) {
+          centerBtn.classList.add("hidden");
+        }
+      }, 1800);
+    } else {
+      updateCenter();
+    }
+  });
+
+  progress.addEventListener("click", event => {
+    event.stopPropagation();
+    seekTo(event.clientX);
+  });
+
+  progress.addEventListener("keydown", event => {
+    if (
+      event.key !== "ArrowRight" &&
+      event.key !== "ArrowLeft"
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (!video.duration || overlay.classList.contains("show")) {
+      return;
+    }
+
+    const direction = event.key === "ArrowRight" ? 5 : -5;
+
+    video.currentTime = Math.max(
+      0,
+      Math.min(video.duration, video.currentTime + direction)
+    );
+
+    showControls();
+  });
+
+  video.addEventListener("play", () => {
+    playBtn.textContent = "Ⅱ";
+    updateCenter();
+    showControls();
+  });
+
+  video.addEventListener("pause", () => {
+    playBtn.textContent = "▶";
+    clearTimeout(centerTimer);
+    updateCenter();
+
+    if (!overlay.classList.contains("show")) {
+      showControls();
+    }
+  });
+
+  video.addEventListener("ended", () => {
+    updateCenter();
+    showControls();
+  });
+
+  video.addEventListener("loadedmetadata", () => {
+    timeEl.textContent =
+      "0:00 / " + formatTime(video.duration);
+  });
+
+  video.addEventListener("timeupdate", () => {
+    if (video.duration) {
+      progressFill.style.width =
+        (video.currentTime / video.duration * 100) + "%";
+
+      timeEl.textContent =
+        formatTime(video.currentTime) +
+        " / " +
+        formatTime(video.duration);
+    }
+
+    if (
+      !gateShown &&
+      gateCount < GATE_TIMES.length &&
+      video.currentTime >= GATE_TIMES[gateCount]
+    ) {
+      gateCount++;
+      gateShown = true;
+
+      video.pause();
+      overlay.classList.add("show");
+
+      shell.classList.remove("controls-hidden");
+      clearTimeout(controlsTimer);
+      updateCenter();
+    }
+  });
+
+  // Video dilanjutkan setelah tombol overlay ditekan.
+  overlay.querySelector('[data-action="continue-ad"]')
+    .addEventListener("click", () => {
+      overlay.classList.remove("show");
+      gateShown = false;
+
+      video.play().catch(() => updateCenter());
+    });
+
+  numberButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.video);
+      selectVideo(index);
+    });
+  });
+
+  document.addEventListener("fullscreenchange", () => {
+    const isFullscreen = document.fullscreenElement === shell;
+
+    shell.classList.toggle("is-fullscreen", isFullscreen);
+    showControls();
+  });
+
+  shell.addEventListener("pointerdown", event => {
+    if (event.target.closest("button, .progress, a")) return;
+    if (overlay.classList.contains("show")) return;
+
+    showControls();
+  });
+
+  document.getElementById("shareButton")
+    .addEventListener("click", async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: document.title,
+            text: "Tonton video ini",
+            url: location.href
+          });
+        } else if (
+          navigator.clipboard &&
+          navigator.clipboard.writeText
+        ) {
+          await navigator.clipboard.writeText(location.href);
+          alert("Link halaman berhasil disalin");
+        } else {
+          prompt("Salin link halaman ini:", location.href);
+        }
+      } catch (error) {
+        // Berbagi dibatalkan atau tidak tersedia.
+      }
+    });
+
+  updateCenter();
+
+  requestAnimationFrame(updateScrollArrows);
+
 })();
 </script>
+
+<!-- Histats.com START -->
+<script>
+var _Hasync = _Hasync || [];
+_Hasync.push(['Histats.start', '1,5043495,4,0,0,0,00010000']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+
+(function() {
+  var hs = document.createElement('script');
+  hs.type = 'text/javascript';
+  hs.async = true;
+  hs.src = ('https:' == document.location.protocol
+    ? 'https://' : 'http:') + 's10.histats.com/js15_as.js';
+
+  (document.getElementsByTagName('head')[0] ||
+   document.getElementsByTagName('body')[0]).appendChild(hs);
+})();
+</script>
+
+<noscript>
+  <a href="/" target="_blank" rel="noopener noreferrer">
+    <img src="https://sstatic1.histats.com/0.gif?5043495&101"
+      alt="web tracker" border="0">
+  </a>
+</noscript>
+<!-- Histats.com END -->
+
 </body>
 </html>
