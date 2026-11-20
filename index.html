@@ -528,6 +528,19 @@ video {
   transform: translateY(-1px);
 }
 
+<!-- TOMBOL JOIN TELEGRAM -->
+<a href="https://t.me/asupan_videyy1"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="telegram-banner">
+
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path fill="currentColor" d="M21.9 4.6 18.7 20c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.6l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L20.7 3.1c.9-.3 1.6.2 1.2 1.5Z"/>
+  </svg>
+
+  <span>JOIN TELEGRAM</span>
+</a>
+  
 footer {
   text-align: center;
   color: #73798c;
@@ -634,6 +647,38 @@ footer {
     font-size: 11px;
   }
 }
+
+  /* TOMBOL JOIN TELEGRAM */
+.telegram-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  min-height: 90px;
+  margin: 25px 0;
+  border-radius: 60px;
+  background: #229ed9;
+  color: white;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: bold;
+  box-shadow: 0 8px 25px #229ed955;
+}
+
+.telegram-banner svg {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+@media(max-width:600px) {
+  .telegram-banner {
+    min-height: 80px;
+    font-size: 20px;
+  }
+}
+  
 </style>
 </head>
 
